@@ -1,5 +1,8 @@
 const links = Array.from(document.querySelectorAll('.nav-links a'));
 const sections = Array.from(document.querySelectorAll('main section[id]'));
+const topbar = document.querySelector('.topbar');
+const menuToggle = document.querySelector('.menu-toggle');
+const mobileQuery = window.matchMedia('(max-width: 1000px)');
 
 const setActiveLink = () => {
   const scrollPosition = window.scrollY + 140;
@@ -20,8 +23,66 @@ const setActiveLink = () => {
   });
 };
 
+const updateNavHeight = () => {
+  if (!topbar) return;
+  document.documentElement.style.setProperty('--nav-height', `${topbar.offsetHeight}px`);
+};
+
+const setMobileNavState = () => {
+  if (!topbar || !menuToggle) return;
+
+  if (!mobileQuery.matches) {
+    topbar.classList.remove('mobile-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    updateNavHeight();
+    return;
+  }
+
+  topbar.classList.remove('mobile-open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  updateNavHeight();
+};
+
+if (menuToggle && topbar) {
+  menuToggle.addEventListener('click', () => {
+    if (!mobileQuery.matches) return;
+
+    const isOpen = topbar.classList.toggle('mobile-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    updateNavHeight();
+  });
+
+  links.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!mobileQuery.matches) return;
+
+      topbar.classList.remove('mobile-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      updateNavHeight();
+    });
+  });
+}
+
 window.addEventListener('scroll', setActiveLink);
 window.addEventListener('load', setActiveLink);
+window.addEventListener('resize', () => {
+  setMobileNavState();
+  setActiveLink();
+});
+window.addEventListener('load', () => {
+  setMobileNavState();
+  setActiveLink();
+});
+
+if (typeof mobileQuery.addEventListener === 'function') {
+  mobileQuery.addEventListener('change', setMobileNavState);
+} else if (typeof mobileQuery.addListener === 'function') {
+  mobileQuery.addListener(setMobileNavState);
+}
+
+if (topbar) {
+  updateNavHeight();
+}
 
 // Certifications carousel
 const certTrack = document.querySelector('.cert-track');
@@ -76,3 +137,4 @@ if (certTrack && certPrev && certNext && certViewport && certHeading) {
     certTrack.scrollLeft = scrollLeft - walk;
   });
 }
+

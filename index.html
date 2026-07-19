@@ -20,7 +20,12 @@
       <header class="topbar">
         <div class="site-shell nav-shell">
           <a class="brand" href="#home"><p class="home-button">Anurag <span class="accent">Vinayak</span> Bora</p></a>
-          <nav class="nav-links" aria-label="Primary navigation">
+          <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <nav id="primary-nav" class="nav-links" aria-label="Primary navigation">
             <a href="#about">About</a>
             <a href="#why">Why Work With Me</a>
             <a href="#services">Services</a>
@@ -49,11 +54,6 @@
         <div class="seperator"></div>
 
         <section id="about" class="about-grid">
-          <div class="portrait-wrap">
-            <div class="portrait-ring">
-              <img alt="Portrait placeholder" src="./rocket.png"/>
-            </div>
-          </div>
           <div class="about-copy">
             <div class="eyebrow-container">
               <p class="eyebrow">About me</p>
@@ -61,6 +61,11 @@
             <h2>A life in three tongues.</h2>
             <p class="about-content">I am a French educator, translator and interpreter based in New Delhi. My work is rooted in long conversation between Europe and the Indian subcontinent — a conversation carried, quietly, by language.</p>
             <p class="about-content">I hold a DALF C1 and work across education, public services and professional communication. I am a member of the Interpreters Association of India.</p>
+          </div>
+          <div class="portrait-wrap">
+            <div class="portrait-ring">
+              <img alt="Portrait placeholder" src="./rocket.png"/>
+            </div>
           </div>
         </section>
 
