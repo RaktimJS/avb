@@ -136,6 +136,8 @@ img {
   text-transform: uppercase;
   text-decoration: none;
   padding: 15px 17px;
+  border-radius: 999px;
+  transition: ease-in 80ms background, ease-in 80ms color;
 }
 
 .nav-links a:hover {
@@ -144,6 +146,11 @@ img {
 }
 .nav-links a.active {
   background-color: var(--accent);
+}
+.nav-links a.active:hover {
+  padding: 13px 15px;
+  border: 2px solid black;
+  color: black;
 }
 
 .seperator {
@@ -608,7 +615,11 @@ img {
 .form-space {
   margin: 0 10em 40px;
   text-align: center;
-  border: 1px solid black;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(45deg, #9B111E, #7851A9, #9B111E) border-box;
+  background-size: 100% 100%;
 }
 
 @media (max-width: 1250px) {
@@ -736,7 +747,7 @@ img {
   }
 
   .form-space {
-    margin: 24px 0 0;
+    margin: 24px 0 40px;
   }
 }
 
