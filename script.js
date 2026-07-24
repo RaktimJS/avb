@@ -80,6 +80,34 @@ if (typeof mobileQuery.addEventListener === 'function') {
   mobileQuery.addListener(setMobileNavState);
 }
 
+// FAQ accordion
+const faqButtons = Array.from(document.querySelectorAll('.faq-toggle'));
+faqButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const item = button.closest('.faq-item');
+    const answer = item?.querySelector('.faq-answer');
+    const isOpen = item?.classList.contains('active');
+
+    faqButtons.forEach((otherButton) => {
+      const otherItem = otherButton.closest('.faq-item');
+      const otherAnswer = otherItem?.querySelector('.faq-answer');
+      otherItem?.classList.remove('active');
+      otherButton.setAttribute('aria-expanded', 'false');
+      if (otherAnswer) {
+        otherAnswer.style.maxHeight = '0px';
+        otherAnswer.style.opacity = '0';
+      }
+    });
+
+    if (!isOpen && item && answer) {
+      item.classList.add('active');
+      button.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = `${answer.scrollHeight}px`;
+      answer.style.opacity = '1';
+    }
+  });
+});
+
 // Certifications carousel
 const certTrack = document.querySelector('.cert-track');
 const certPrev = document.querySelector('.cert-prev');
