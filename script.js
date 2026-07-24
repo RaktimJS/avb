@@ -114,6 +114,9 @@ const certPrev = document.querySelector('.cert-prev');
 const certNext = document.querySelector('.cert-next');
 const certViewport = document.querySelector('.cert-viewport');
 const certHeading = document.querySelector('#certifications .section-heading');
+const certCounter = document.querySelector('.cert-counter');
+const certCounterCurrent = certCounter?.querySelector('.cert-counter-current');
+const certCounterTotal = certCounter?.querySelector('.cert-counter-total');
 if (certTrack && certPrev && certNext && certViewport && certHeading) {
   const certCards = Array.from(certTrack.querySelectorAll('.cert-card'));
   const cardCount = certCards.length;
@@ -125,7 +128,16 @@ if (certTrack && certPrev && certNext && certViewport && certHeading) {
       cardCount - 1
     );
     const safeIndex = Math.min(Math.max(currentIndex, 0), cardCount - 1);
-    certHeading.dataset.counter = `${String(safeIndex + 1).padStart(2, '0')} / ${String(cardCount).padStart(2, '0')}`;
+    const currentValue = String(safeIndex + 1).padStart(2, '0');
+    const totalValue = String(cardCount).padStart(2, '0');
+
+    certHeading.dataset.counter = `${currentValue} / ${totalValue}`;
+    if (certCounterCurrent) {
+      certCounterCurrent.textContent = currentValue;
+    }
+    if (certCounterTotal) {
+      certCounterTotal.textContent = totalValue;
+    }
     certPrev.disabled = cardCount <= 1;
     certNext.disabled = cardCount <= 1;
   };
